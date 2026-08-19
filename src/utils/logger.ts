@@ -40,6 +40,7 @@ export class Logger {
   debug(message: string, data?: unknown): void {
     if (this.shouldLog('debug')) {
       const entry = this.format('debug', message, data);
+      // eslint-disable-next-line no-console
       console.debug(JSON.stringify(entry));
     }
   }
@@ -47,6 +48,7 @@ export class Logger {
   info(message: string, data?: unknown): void {
     if (this.shouldLog('info')) {
       const entry = this.format('info', message, data);
+      // eslint-disable-next-line no-console
       console.log(JSON.stringify(entry));
     }
   }
@@ -54,6 +56,7 @@ export class Logger {
   warn(message: string, data?: unknown): void {
     if (this.shouldLog('warn')) {
       const entry = this.format('warn', message, data);
+      // eslint-disable-next-line no-console
       console.warn(JSON.stringify(entry));
     }
   }
@@ -62,6 +65,7 @@ export class Logger {
     if (this.shouldLog('error')) {
       const errorData = error instanceof Error ? { message: error.message, stack: error.stack } : error;
       const entry = this.format('error', message, errorData);
+      // eslint-disable-next-line no-console
       console.error(JSON.stringify(entry));
     }
   }

@@ -140,7 +140,7 @@ export class Ext4Parser extends FilesystemParser {
   /**
    * Parse extent tree for file blocks
    */
-  private async parseExtentTree(inodeBuffer: Buffer): Promise<Map<number, number>> {
+  private async parseExtentTree(_inodeBuffer: Buffer): Promise<Map<number, number>> {
     logger.debug('Parsing extent tree...');
 
     // TODO: Implement extent tree parsing
