@@ -1,0 +1,141 @@
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Build outputs
+dist/
+build/
+*.exe
+*.dmg
+*.deb
+*.rpm
+*.AppImage
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+coverage/
+.nyc_output/
+jest-coverage/
+test-results/
+
+# OS
+Thumbs.db
+.DS_Store
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+/temp/
+
+# Development files
+*.bak
+*.backup
+*.autosave
+
+# Cache
+.cache/
+*.cache
+
+# Lock files (unless they're essential for production)
+# package-lock.json  # Uncomment if you want to track this
+# yarn.lock          # Uncomment if you want to track this
+
+# Secrets (never commit)
+secrets/
+.env.secret
+credentials/
+*.pem
+*.key
+*.cert
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+data/
+
+# Build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+
+# Node
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Optional REPL history
+.node_repl_history
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# IDEs
+.vscode
+.idea
+*.sublime-text-project
+*.sublime-workspace
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Generated files
+docs-dist/
+
+# User-specific settings
+.user
+*.user

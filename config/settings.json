@@ -1,0 +1,166 @@
+{
+  "app": {
+    "name": "DRG Recovery Tool",
+    "version": "1.0.0",
+    "description": "Professional-grade data recovery. Consumer-simple price.",
+    "homepage": "https://digitalrecovery.com/tools/DRGRecoveryTool",
+    "repository": "https://github.com/digitalrecoverygroup/DRGRecoveryTool",
+    "license": "MIT"
+  },
+
+  "branding": {
+    "logo": "assets/branding/drg-logo.png",
+    "logoText": "DRG Recovery Tool",
+    "tagline": "Professional-grade data recovery. Consumer-simple price.",
+    "primaryColor": "#2563EB",
+    "secondaryColor": "#1E40AF",
+    "accentColor": "#10B981",
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+  },
+
+  "features": {
+    "quickScan": {
+      "enabled": true,
+      "timeout": 30000,
+      "description": "Fast signature-based file detection"
+    },
+    "deepScan": {
+      "enabled": true,
+      "timeout": 14400000,
+      "description": "Comprehensive byte-by-byte read"
+    },
+    "filePreview": {
+      "enabled": true,
+      "supportedFormats": ["jpg", "png", "gif", "pdf", "txt", "doc", "docx", "xls", "xlsx", "mp4", "mov"]
+    },
+    "diskImaging": {
+      "enabled": true,
+      "maxImageSize": "1TB"
+    },
+    "escalationToLabs": {
+      "enabled": true,
+      "labsURL": "https://digitalrecovery.com/labs/escalate",
+      "contactEmail": "labs@digitalrecovery.com"
+    },
+    "raidDetection": {
+      "enabled": false,
+      "plannedVersion": "1.1"
+    },
+    "encryptionDetection": {
+      "enabled": false,
+      "plannedVersion": "1.1"
+    }
+  },
+
+  "fileSystem": {
+    "supported": ["NTFS", "FAT32", "HFS+", "Ext4"],
+    "planned": ["XFS", "Btrfs", "ZFS"]
+  },
+
+  "pricing": {
+    "currency": "EUR",
+    "trial": {
+      "price": 0,
+      "recoveryLimit": "256MB",
+      "duration": "unlimited"
+    },
+    "perpetual": {
+      "price": 39.97,
+      "currency": "EUR",
+      "licenseType": "single-user",
+      "platforms": ["Windows", "macOS", "Linux"]
+    }
+  },
+
+  "trial": {
+    "recoveryLimit": 268435456,
+    "scanLimit": "unlimited",
+    "previewLimit": "unlimited",
+    "escalationAllowed": true
+  },
+
+  "scanning": {
+    "quickScan": {
+      "timeout": 30000,
+      "method": "signature-based",
+      "filesPerSecond": 10000
+    },
+    "deepScan": {
+      "timeout": 14400000,
+      "method": "full-byte-read",
+      "chunkSize": 65536,
+      "threadsPerCore": 2,
+      "pauseResumeEnabled": true
+    }
+  },
+
+  "storage": {
+    "maxScanItems": 100000000,
+    "tempDirectory": "/tmp/drg-recovery",
+    "cacheDirectory": "/var/cache/drg-recovery",
+    "maxCacheSize": "5GB"
+  },
+
+  "api": {
+    "labsEndpoint": "https://api.digitalrecovery.com/v1/escalations",
+    "timeout": 30000,
+    "retries": 3
+  },
+
+  "ui": {
+    "theme": "auto",
+    "languages": ["pt-BR", "en-US", "de-DE", "es-ES", "fr-FR"],
+    "defaultLanguage": "en-US",
+    "accessibility": {
+      "highContrast": false,
+      "reducedMotion": false,
+      "fontSize": 16
+    }
+  },
+
+  "security": {
+    "enableTelemetry": false,
+    "enableAnalytics": false,
+    "enableCrashReporting": false,
+    "dataRetention": "0days",
+    "gdprCompliant": true,
+    "privacyPolicy": "https://digitalrecovery.com/privacy"
+  },
+
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "destination": "console",
+    "maxSize": "100MB"
+  },
+
+  "performance": {
+    "enableCaching": true,
+    "cacheTTL": 3600,
+    "maxConcurrentScans": 1,
+    "preloadFileSystem": false
+  },
+
+  "updates": {
+    "checkForUpdates": true,
+    "updateChannel": "stable",
+    "autoDownload": false,
+    "autoInstall": false,
+    "updateServer": "https://updates.digitalrecovery.com/drg-recovery-tool"
+  },
+
+  "support": {
+    "helpURL": "https://digitalrecovery.com/tools/DRGRecoveryTool/help",
+    "faqURL": "https://digitalrecovery.com/tools/DRGRecoveryTool/faq",
+    "contactEmail": "support@digitalrecovery.com",
+    "communityForum": "https://community.digitalrecovery.com/drg-recovery-tool",
+    "labsEscalation": "https://digitalrecovery.com/labs/escalate"
+  },
+
+  "development": {
+    "mockData": false,
+    "simulatedDevices": false,
+    "debugMode": false,
+    "verboseLogging": false
+  }
+}

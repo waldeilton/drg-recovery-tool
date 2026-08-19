@@ -1,0 +1,135 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  lint:
+    name: Lint & Code Quality
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+
+  test:
+    name: Unit & Integration Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        node-version: [ 18.x, 20.x ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run test:unit
+      - run: npm run test:integration
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '18.x'
+
+  build:
+    name: Build Distribution
+    runs-on: ${{ matrix.os }}
+    needs: [ lint, test ]
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        include:
+          - os: ubuntu-latest
+            artifact: drg-recovery-tool-linux.AppImage
+          - os: macos-latest
+            artifact: drg-recovery-tool-macos.dmg
+          - os: windows-latest
+            artifact: drg-recovery-tool-windows.exe
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: npm ci
+      - run: npm run build:prod
+      - name: Package for ${{ matrix.os }}
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            npm run package:linux
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            npm run package:macos
+          elif [ "${{ matrix.os }}" = "windows-latest" ]; then
+            npm run package:windows
+          fi
+        shell: bash
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/
+
+  security:
+    name: Security Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: npm ci
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+      - name: Check dependencies for vulnerabilities
+        run: npx snyk test --severity-threshold=high
+        continue-on-error: true
+
+  release:
+    name: Release (on main branch)
+    runs-on: ubuntu-latest
+    needs: [ lint, test, build, security ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          semantic_version: 21.x
+          dry_run: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release Notes
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          echo "🚀 New version released: ${{ steps.semantic.outputs.new_release_version }}"
+          echo "📦 Artifacts available in Releases"
+
+  notify:
+    name: Notification
+    runs-on: ubuntu-latest
+    needs: [ lint, test, build ]
+    if: always()
+    steps:
+      - name: Check CI Status
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ CI/CD Pipeline Passed"
+          else
+            echo "❌ CI/CD Pipeline Failed"
+          fi
