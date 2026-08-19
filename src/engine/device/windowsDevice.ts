@@ -3,7 +3,7 @@
  * Platform-specific device I/O for Windows using Win32 API
  */
 
-import { execSync, exec } from 'child_process';
+import { exec } from 'child_process';
 import { promisify } from 'util';
 import { Logger } from '../../utils/logger';
 import type { StorageDevice } from './deviceManager';

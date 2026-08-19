@@ -151,7 +151,7 @@ export class Ext4Parser extends FilesystemParser {
   /**
    * Parse directory entries
    */
-  private async parseDirectoryEntries(inodeBuffer: Buffer): Promise<FileEntry[]> {
+  private async parseDirectoryEntries(_inodeBuffer: Buffer): Promise<FileEntry[]> {
     logger.debug('Parsing directory entries...');
 
     // TODO: Implement directory entry parsing

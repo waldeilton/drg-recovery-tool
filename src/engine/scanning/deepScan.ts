@@ -84,7 +84,7 @@ export class DeepScanEngine {
 
         if (bytesScanned > 104857600 || now - lastReportTime > 5000) {
           if (onProgress) {
-            const elapsed = now - startTime;
+            const _elapsed = now - startTime;
             const percentComplete = Math.floor((i / buffer.length) * 100);
             const bytesPerMs = (i - lastReportPosition) / (now - lastReportTime);
             const bytesRemaining = buffer.length - i;

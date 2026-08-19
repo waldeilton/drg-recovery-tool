@@ -3,7 +3,7 @@
  * Platform-specific device I/O for Linux using sysfs and direct device access
  */
 
-import { execSync, exec } from 'child_process';
+import { exec } from 'child_process';
 import { promisify } from 'util';
 import { readFileSync } from 'fs';
 import { Logger } from '../../utils/logger';
